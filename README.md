@@ -5,8 +5,8 @@ An iOS pomodoro timer app (including history ♦︎). A pomodoro app has 'Rounds
 
 For more information and examples of Pomodoro:
 
-* [Wired In](https://itunes.apple.com/US/app/id953366135)
 * [LifeHacker on Pomodoro](http://lifehacker.com/productivity-101-a-primer-to-the-pomodoro-technique-1598992730)
+* [Wired In](https://itunes.apple.com/US/app/id953366135)
 
 Remember, the solution code is here as a resource. Do not copy and paste. Understand, walk through it *line by line*, and write it yourself.
 
@@ -50,7 +50,7 @@ The Timer View Controller displays a countdown of the current round and has a St
 
 - Create a ```sharedInstance``` class method on ```RoundsController``` that returns a singleton ```RoundsController``` instance
 - Add a public, readonly property of type NSArray called ```roundTimes```
-	- In the implementaion file, override the roundTimes getter method and return this array ```@[@25, @5, @25, @5, @25, @5, @25, @15]```
+	- In the implementaion file, override the roundTimes getter method and return this array ```@[@1500, @300, @1500, @300, @1500, @300, @1500, @900]```. This array represents the number of seconds in each round (25 minutes, 5 minutes, 25, 5, 25, 5, 25, 15 minutes).
 - Add a public property of type NSInteger called ```currentRound```
 
 ###Step 4: Create a timer class
@@ -59,7 +59,7 @@ Use a separate [Timer](https://github.com/DevMountain/The-Pomodoro/blob/solution
 Pay attention to what the class does for you, walk through each method, understand what it is doing.
 
 - Create a ```Timer``` Class as a Shared Instance
-- Add public properties of type NSInteger for ```minutes``` and ```seconds```
+- Add public properties of type NSInteger for ```seconds```
 - Create public static NSStrings with names from above table (```SecondTickNotification```, ```TimerCompleteNotification```, ```NewRoundNotification```)
 - Add a private BOOL property called ```isOn``` to allow you to check if the timer is active
 - Add a public void method called ```startTimer```
@@ -69,7 +69,6 @@ Pay attention to what the class does for you, walk through each method, understa
   - ```endTimer``` should turn ```isOn``` to NO and send a ```TimerCompleteNotification``` that the timer has finished
 - Add a private void method called ```decreaseSecond```
   - ```decreaseSecond``` should decrease one second from the remaining time and send a ```SecondTickNotification``` notification that one second passed
-  	- don't forget to change minutes, if necessary
   	- if the timer has elpased, then call ```endTimer```
 - Add a private void method called ```checkActive```
   - ```checkActive``` should check if the timer is on (```self.isOn```), and if so, call the ```decreaseSecond``` method, then it should call itself in one second
@@ -77,7 +76,7 @@ Pay attention to what the class does for you, walk through each method, understa
 - Add a public void method called ```cancelTimer```
   - ```cancelTimer``` should turn ```isOn``` to NO
   - ```cancelTimer``` should cancel previous perform requests
-- Add an instance helper method that will return an NSString of the time remaining. This should return a string like one you'd read on a timer,  05:09, 5 minutes 
+- Add an instance helper method that will return an NSString of the time remaining. This should return a string like one you'd read on a timer,  "05:09", for 309 seconds 
 
 ###Step 5: Update TimerViewController User Interface and Implementation File
 
@@ -88,11 +87,11 @@ Pay attention to what the class does for you, walk through each method, understa
 - In your timer button pressed method (written above but left empty), call ```startTimer``` on ```sharedInstace``` of ```Timer```.
   - note: We need to disable the button while the timer is going.
 - At this point we can test that our timer works and the update label method works:
-  - in the ```dispatch_once``` method, set ```sharedInstance.minutes``` and ```sharedInstance.seconds``` to whatever values you want to test (might be smart to make sure the minute decreases appropriately)
+  - in the ```dispatch_once``` method, set ```sharedInstance.seconds``` to whatever value you want to test (might be smart to make sure the minute decreases appropriately)
   - build and run the app
   - your timer label won't update until you tap start timer button
   - your timer should be counting down correctly
-  - remove the lines of code where you set ```minutes``` and ```seconds```
+  - remove the lines of code where you set ```sharedInstance.seconds```
 
 ###Step 6: Add a tableview and datasource methods to the rounds view controller
 
@@ -100,9 +99,9 @@ Pay attention to what the class does for you, walk through each method, understa
 - set ```self``` as datasource and delegate of ```tableView```
 - Add the ```tableView``` to the ```RoundsViewController```'s ```view```
 - Add required datasource methods to display cells that the user can use to select which round they want to start
-  - The cell should display the number of minutes in the round (which can be retieved from the ```RoundsController```)
+  - The cell should display the number of MINUTES in the round (which can be retieved from the ```RoundsController```)
 - In the ```RoundsController``` add a public, void method, ```roundSelected```
-  - that will update the minutes and seconds on the ```[Timer sharedInstance]``` from the ```currentRound``` property
+  - that will update the ```seconds``` property on the ```[Timer sharedInstance]``` from the ```currentRound``` property
   - that will send a ```NewRoundNotification``` notification
 - In the ```RoundsViewController```, add didSelectRowAtIndexPath
   - set the ```currentRound``` property of ```[RoundsViewController sharedInstance] to the indexPath.row

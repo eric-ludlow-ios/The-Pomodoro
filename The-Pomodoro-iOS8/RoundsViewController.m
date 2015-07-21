@@ -75,9 +75,9 @@ static NSString *reuseID = @"reuseID";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseID];
     
     NSArray *roundsArray = [RoundsController sharedInstance].roundTimes;
-    NSNumber *minutes = roundsArray[indexPath.row];
+    NSNumber *seconds = roundsArray[indexPath.row];
     
-    cell.textLabel.text = [NSString stringWithFormat:@"%li minutes", (long)[minutes integerValue]];
+    cell.textLabel.text = [NSString stringWithFormat:@"%li minutes", [seconds longValue] / 60];
     
     return cell;
 }

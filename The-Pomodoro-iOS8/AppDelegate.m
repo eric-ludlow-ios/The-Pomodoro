@@ -34,7 +34,7 @@
     
     //Create a TabBarController and add the viewController to the viewControllers array
     UITabBarController *tabBarController = [UITabBarController new];
-    tabBarController.viewControllers = @[timerVC, roundsNavController];
+    tabBarController.viewControllers = @[roundsNavController, timerVC];
     
     //set the rootViewController as the tabBarController
     self.window.rootViewController = tabBarController;
