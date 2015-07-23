@@ -8,6 +8,7 @@
 
 #import "RoundsViewController.h"
 #import "Timer.h"
+#import "AppearanceController.h"
 
 static NSString * const cellReuseID = @"cellReuseID";
 
@@ -51,8 +52,13 @@ static NSString * const cellReuseID = @"cellReuseID";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.title = @"Pomodoro";
+    
     self.roundsTableView = [[UITableView alloc] initWithFrame:self.view.bounds
                                                         style:UITableViewStyleGrouped];
+//    self.roundsTableView.layer.cornerRadius = 30;
+//    self.roundsTableView.layer.masksToBounds = YES;
+    
     self.roundsTableView.dataSource = self;
     self.roundsTableView.delegate = self;
     
@@ -73,7 +79,15 @@ static NSString * const cellReuseID = @"cellReuseID";
                                                    reuseIdentifier:cellReuseID];
     NSInteger roundSeconds = [[self roundTimes][indexPath.row] integerValue];
     NSInteger roundMinutes = roundSeconds / 60;
+    cell.textLabel.textColor = [AppearanceController tomatoYellow];
+    cell.textLabel.font = [UIFont fontWithName:@"Copperplate" size:20];
     cell.textLabel.text = [NSString stringWithFormat:@"Round %i:   %i minutes", (int)indexPath.row + 1, (int)roundMinutes];
+    cell.imageView.image = [UIImage imageNamed:[AppearanceController cellImageNames][indexPath.row]];
+    cell.layer.borderColor = [[AppearanceController tomatoYellow] CGColor];
+    cell.layer.borderWidth = 1.0;
+    cell.layer.cornerRadius = 18;
+    cell.layer.masksToBounds = YES;
+    
     return cell;
 }
 

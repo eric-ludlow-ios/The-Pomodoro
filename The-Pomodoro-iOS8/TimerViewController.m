@@ -9,6 +9,7 @@
 #import "TimerViewController.h"
 #import "Timer.h"
 #import "RoundsViewController.h"
+#import "AppearanceController.h"
 
 @interface TimerViewController ()
 
@@ -45,6 +46,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.view.backgroundColor = [AppearanceController tomatoYellow];
     
     [self.timerButton setTitle:@"Start Timer"
                       forState:UIControlStateNormal];

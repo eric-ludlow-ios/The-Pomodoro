@@ -17,8 +17,12 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mgp-a5-j5n">
-                    <rect key="frame" x="279" y="279.5" width="42" height="41"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mgp-a5-j5n">
+                    <rect key="frame" x="275" y="280" width="50" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="JNJ-bU-zci"/>
+                        <constraint firstAttribute="height" constant="40" id="ZW1-5H-gJz"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
@@ -28,7 +32,6 @@
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ula-fC-Ece">
                             <rect key="frame" x="200" y="50" width="200" height="200"/>
-                            <color key="backgroundColor" red="0.76596038509999997" green="0.15493877889999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="200" id="FS8-QX-uGL"/>
                                 <constraint firstAttribute="height" constant="200" id="UIq-ZY-Okf"/>

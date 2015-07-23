@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "RoundsViewController.h"
 #import "TimerViewController.h"
+#import "AppearanceController.h"
 
 @interface AppDelegate ()
 
@@ -23,18 +24,22 @@
     
     RoundsViewController *roundViewCon = [RoundsViewController new];
     roundViewCon.tabBarItem.title = @"Rounds";
-    roundViewCon.tabBarItem.image = [UIImage imageNamed:@"dataSheetFilled"];
+    roundViewCon.tabBarItem.image = [[UIImage imageNamed:@"dataSheetFilled"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    roundViewCon.tabBarItem.selectedImage = [UIImage imageNamed:@"dataSheetFilled"];
     UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:roundViewCon];
     
     TimerViewController *timeViewCon = [TimerViewController new];
     timeViewCon.tabBarItem.title = @"Time";
-    timeViewCon.tabBarItem.image = [UIImage imageNamed:@"timeSpanFilled"];
+    timeViewCon.tabBarItem.image = [[UIImage imageNamed:@"timeSpanFilled"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    timeViewCon.tabBarItem.selectedImage = [UIImage imageNamed:@"timeSpanFilled"];
     
     UITabBarController *tabBarCon = [UITabBarController new];
     
     tabBarCon.viewControllers = @[navCon, timeViewCon];
     
     self.window.rootViewController = tabBarCon;
+    
+    [AppearanceController initializeAppearance];
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
