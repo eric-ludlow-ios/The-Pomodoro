@@ -4,6 +4,8 @@
 //
 //  Created by Taylor Mott on 18.2.2015.
 //  Copyright (c) 2015 DevMountain. All rights reserved.
+
+//  tab bar icons from https://icons8.com/
 //
 
 #import <UIKit/UIKit.h>
