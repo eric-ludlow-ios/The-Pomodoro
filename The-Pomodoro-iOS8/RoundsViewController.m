@@ -82,7 +82,8 @@ static NSString * const cellReuseID = @"cellReuseID";
     cell.imageView.image = [UIImage imageNamed:[AppearanceController cellImageNames][indexPath.row]];
     cell.layer.borderColor = [[AppearanceController tomatoYellow] CGColor];
     cell.layer.borderWidth = 1.0;
-    cell.layer.cornerRadius = 18;
+    
+    cell.layer.cornerRadius = 24;
     cell.layer.masksToBounds = YES;
     
     return cell;
@@ -93,6 +94,11 @@ static NSString * const cellReuseID = @"cellReuseID";
     self.currentRound = indexPath.row;
     [self roundSelected];
     [[Timer sharedInstance] cancelTimer];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return 60;
 }
 
 - (void)roundSelected {
