@@ -24,4 +24,8 @@ static NSString * const NewRoundNotification = @"NewRoundNotification";
 
 - (NSString *)timeRemaining;
 
+- (void)prepareForBackground;
+
+- (void)loadFromBackground;
+
 @end

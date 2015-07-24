@@ -56,9 +56,6 @@ static NSString * const cellReuseID = @"cellReuseID";
     
     self.roundsTableView = [[UITableView alloc] initWithFrame:self.view.bounds
                                                         style:UITableViewStyleGrouped];
-//    self.roundsTableView.layer.cornerRadius = 30;
-//    self.roundsTableView.layer.masksToBounds = YES;
-    
     self.roundsTableView.dataSource = self;
     self.roundsTableView.delegate = self;
     

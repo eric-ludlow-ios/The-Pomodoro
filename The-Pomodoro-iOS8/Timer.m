@@ -7,10 +7,14 @@
 //
 
 #import "Timer.h"
+@import UIKit;
+
+static NSString * const savedDateKey = @"savedDateKey";
 
 @interface Timer()
 
 @property (nonatomic)BOOL isOn;
+@property (strong, nonatomic)NSDate *expirationDate;
 
 @end
 
@@ -32,6 +36,16 @@
 - (void)startTimer {
     
     self.isOn = YES;
+    self.expirationDate = [NSDate dateWithTimeIntervalSinceNow:self.seconds];
+    
+    UILocalNotification *localNotification = [UILocalNotification new];
+    localNotification.fireDate = self.expirationDate;
+    localNotification.timeZone = [NSTimeZone defaultTimeZone];
+    localNotification.soundName = UILocalNotificationDefaultSoundName;
+    localNotification.alertBody = [NSString stringWithFormat:@"Your %i mminutes are up.", (int)(self.seconds / 60)];
+    localNotification.applicationIconBadgeNumber = 1;
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+    
     [self checkActive];
 }
 
@@ -44,11 +58,11 @@
 
 - (void)decreaseSecond {
     
-    if (self.seconds != 0) {
+    if (self.seconds > 0) {
         self.seconds -= 1;
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:SecondTickNotification object:nil];
-    if (self.seconds == 0) {
+    if (self.seconds <= 0) {
         [self endTimer];
     }
 }
@@ -73,6 +87,9 @@
     [NSObject cancelPreviousPerformRequestsWithTarget:self
                                              selector:nil
                                                object:nil];
+    
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
 }
 
 - (NSString *)timeRemaining {
@@ -88,5 +105,23 @@
     
     return [NSString stringWithFormat:@"%i%i:%i%i", (int)tensMinutes, (int)onesMinutes, (int)tensSeconds, (int)onesSeconds];
 }
+
+- (void)prepareForBackground {
+    
+    NSDate *savedExpirationDate = self.expirationDate;
+    [[NSUserDefaults standardUserDefaults] setObject:savedExpirationDate
+                                              forKey:savedDateKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)loadFromBackground {
+    
+    self.expirationDate = [[NSUserDefaults standardUserDefaults] objectForKey:savedDateKey];
+    
+    int seconds = [self.expirationDate timeIntervalSinceNow];
+    
+    self.seconds = seconds;
+}
+
 
 @end
